@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Destination\app\Http\Controllers\Admin;
+namespace Modules\Destination\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Modules\Destination\app\Http\Requests\DestinationRequest;
-use Modules\Destination\app\Models\Destination;
-use Modules\Destination\app\Models\DestinationCategory;
-use Modules\Core\app\Services\ImageService;
+use Modules\Destination\Http\Requests\DestinationRequest;
+use Modules\Destination\Models\Destination;
+use Modules\Destination\Models\DestinationCategory;
+use Modules\Core\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

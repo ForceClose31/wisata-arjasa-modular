@@ -1,28 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\Gallery\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Destination;
-use App\Models\DestinationCategory;
-use App\Models\Gallery;
-use App\Models\GalleryCategory;
+use Modules\Gallery\Models\Gallery;
+use Modules\Gallery\Models\GalleryCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class AdminGalleryController extends Controller
 {
     public function index()
     {
         $galleries = Gallery::with('galleryCategory')->latest()->paginate(10);
-        return view('admin.galleries.index', compact('galleries'));
+        return view('gallery::admin.galleries.index', compact('galleries'));
     }
 
     public function create()
     {
         $categories = GalleryCategory::all();
-        return view('admin.galleries.create', compact('categories'));
+        return view('gallery::admin.galleries.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -41,7 +38,6 @@ class AdminGalleryController extends Controller
             $imagePath = $request->file('image_path')->store('gallery', 'public');
             $validated['image_path'] = $imagePath;
         }
-
 
         $validated['admin_id'] = auth()->id();
 
@@ -67,7 +63,7 @@ class AdminGalleryController extends Controller
     public function edit(Gallery $gallery)
     {
         $categories = GalleryCategory::all();
-        return view('admin.galleries.edit', compact('gallery', 'categories'));
+        return view('gallery::admin.galleries.edit', compact('gallery', 'categories'));
     }
 
     public function update(Request $request, Gallery $gallery)
@@ -104,6 +100,7 @@ class AdminGalleryController extends Controller
             'gallery_category_id' => $validated['gallery_category_id'],
             'image_path' => $validated['image_path'] ?? $gallery->image_path,
         ]);
+
         return redirect()->route('admin.galleries.index')
             ->with('success', 'Destinasi wisata berhasil diperbarui');
     }

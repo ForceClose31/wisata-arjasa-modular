@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Gallery\Models;
 
-use App\Traits\Loggable;
+use Modules\Core\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;

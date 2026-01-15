@@ -1,9 +1,9 @@
 <?php
 
-namespace Modules\Destination\app\Models;
+namespace Modules\Destination\Models;
 
-use Modules\Core\app\Traits\Loggable;
-use Modules\Core\app\Models\Admin;
+use Modules\Core\Traits\Loggable;
+use Modules\Core\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

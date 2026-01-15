@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Destination\app\Http\Controllers\User;
+namespace Modules\Destination\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Modules\Destination\app\Models\DestinationCategory;
-use Modules\Destination\app\Models\Destination;
+use Modules\Destination\Models\DestinationCategory;
+use Modules\Destination\Models\Destination;
 use Illuminate\Contracts\View\View;
 
 class TouristDestinationController extends Controller

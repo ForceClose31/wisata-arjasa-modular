@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\Core\app\Http\Controllers;
+namespace Modules\Core\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Core\app\Models\AdminActivity;
-use Modules\Destination\app\Models\Destination;
-use Modules\Gallery\app\Models\Gallery;
-use Modules\TourPackage\app\Models\TourPackage;
+use Modules\Core\Models\AdminActivity;
+use Modules\Destination\Models\Destination;
+use Modules\Gallery\Models\Gallery;
+use Modules\TourPackage\Models\TourPackage;
 use Carbon\Carbon;
 
 class AdminController extends Controller
