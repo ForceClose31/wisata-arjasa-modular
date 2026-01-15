@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Gallery;
 use Illuminate\Database\Seeder;
+use Modules\Gallery\Models\Gallery;
 
 class GallerySeeder extends Seeder
 {

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\File;
 class AnalyzeArchitectureMetrics extends Command
 {
     protected $signature = 'architecture:analyze
-                            {path=app/Modules : Path to analyze}
+                            {path=Modules : Path to analyze}
                             {--arch-version=v1 : Architecture version identifier}
                             {--type=modular : Architecture type (monolith|modular)}
                             {--output=storage/metrics : Output directory for results}
@@ -91,47 +91,18 @@ class AnalyzeArchitectureMetrics extends Command
 
             $this->line("  - Scanning module: {$moduleName}");
 
-            // Check if this is a nested module structure (like TourPackages)
-            if ($this->hasNestedStructure($moduleDir)) {
-                $this->line("    ↳ Detected nested Laravel structure");
-                $this->analyzeNestedModule($moduleName, $moduleDir);
+            // Check if this is a module with app directory (Laravel module structure)
+            $appPath = $moduleDir . '/app';
+            if (File::exists($appPath)) {
+                $this->line("    ↳ Detected Laravel module structure");
+                $this->analyzeModule($moduleName, $appPath);
             } else {
+                // Direct module analysis
                 $this->analyzeModule($moduleName, $moduleDir);
             }
         }
 
         $this->info("✓ Found " . count($this->modules) . " modules");
-    }
-
-    /**
-     * Check if directory has nested Laravel structure
-     */
-    protected function hasNestedStructure($dir)
-    {
-        return File::exists($dir . '/app') ||
-            File::exists($dir . '/composer.json') ||
-            File::exists($dir . '/module.json');
-    }
-
-    /**
-     * Analyze nested module (like TourPackages with its own app structure)
-     */
-    protected function analyzeNestedModule($parentModule, $parentPath)
-    {
-        // Check if has app directory (nested Laravel structure)
-        if (File::exists($parentPath . '/app')) {
-            $appPath = $parentPath . '/app';
-            $subModules = File::directories($appPath);
-
-            foreach ($subModules as $subModuleDir) {
-                $subModuleName = $parentModule . '::' . basename($subModuleDir);
-                $this->line("    ↳ Found sub-module: " . basename($subModuleDir));
-                $this->analyzeModule($subModuleName, $subModuleDir);
-            }
-        } else {
-            // Regular module analysis
-            $this->analyzeModule($parentModule, $parentPath);
-        }
     }
 
     /**
@@ -410,11 +381,8 @@ class AnalyzeArchitectureMetrics extends Command
                     continue;
                 }
 
-                // Get base namespace for target module
-                $targetModuleBase = str_replace('::', '\\', $targetModule);
-
-                // Check for namespace imports
-                if (preg_match_all('/use\s+App\\\\Modules\\\\[^;]*' . preg_quote(basename($targetModuleBase), '/') . '[^;]*/i', $content, $matches)) {
+                // Pattern 1: Check for namespace imports (Modules\TargetModule\...)
+                if (preg_match_all('/use\s+Modules\\\\' . preg_quote($targetModule, '/') . '\\\\[^;]+;/i', $content, $matches)) {
                     foreach ($matches[0] as $match) {
                         $this->serviceConnections[] = [
                             'from' => $moduleName,
@@ -426,12 +394,12 @@ class AnalyzeArchitectureMetrics extends Command
                     }
                 }
 
-                // Check for Facade usage
-                if (preg_match_all('/\\\\?' . preg_quote(basename($targetModuleBase), '/') . '::/i', $content, $matches)) {
+                // Pattern 2: Check for Model/Service usage in code
+                if (preg_match_all('/\\\\?' . preg_quote($targetModule, '/') . '\\\\Models\\\\(\w+)/i', $content, $matches)) {
                     $this->serviceConnections[] = [
                         'from' => $moduleName,
                         'to' => $targetModule,
-                        'type' => 'static_call',
+                        'type' => 'model_usage',
                         'count' => count($matches[0])
                     ];
                 }

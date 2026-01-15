@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace Modules\TourPackage\Services;
 
-use App\Models\TourPackage;
-use App\Http\Requests\TourPackageRequest;
 use Illuminate\Support\Str;
+use Modules\Core\Services\ImageService;
+use Modules\TourPackage\Http\Requests\TourPackageRequest;
+use Modules\TourPackage\Models\TourPackage;
 
 class TourPackageService
 {

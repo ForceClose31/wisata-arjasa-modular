@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Modules\Core\Models\Admin;
 
 class AdminSeeder extends Seeder
 {

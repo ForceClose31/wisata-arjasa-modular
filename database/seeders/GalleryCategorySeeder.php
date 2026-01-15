@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\GalleryCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Gallery\Models\GalleryCategory;
 
 class GalleryCategorySeeder extends Seeder
 {

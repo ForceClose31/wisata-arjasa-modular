@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Destination;
-use App\Models\DestinationCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Modules\Destination\Models\Destination;
+use Modules\Destination\Models\DestinationCategory;
 
 class DestinationSeeder extends Seeder
 {

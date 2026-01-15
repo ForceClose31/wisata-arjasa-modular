@@ -141,7 +141,7 @@
                 </div>
                 <div class="p-6">
                     <div id="activities-section">
-                        @include('admin.partials.activities', ['recentActivities' => $recentActivities])
+                        @include('core::admin.partials.activities', ['recentActivities' => $recentActivities])
                     </div>
                 </div>
             </div>

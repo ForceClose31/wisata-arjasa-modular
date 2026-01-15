@@ -2,15 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\PackageType;
-use App\Models\TourPackage;
 use Illuminate\Database\Seeder;
+use Modules\TourPackage\Models\PackageType;
+use Modules\TourPackage\Models\TourPackage;
 
 class TourPackageSeeder extends Seeder
 {
     public function run()
     {
-        // DAY ONE DAY TOUR
         $oneDayTour = TourPackage::create([
             'package_type_id' => PackageType::where('slug', 'one-day-tour')->first()->id,
             'name' => [

@@ -1,0 +1,348 @@
+{
+    "version": "v2.0",
+    "architecture_type": "modular",
+    "timestamp": "2026-01-15T07:09:44+00:00",
+    "metrics": {
+        "S1": 4,
+        "S2": 3,
+        "D1": 9,
+        "D2": 4,
+        "D3": 6,
+        "D4": 0,
+        "D5": 0
+    },
+    "modules": [
+        {
+            "name": "Core",
+            "controllers_count": 3,
+            "models_count": 2,
+            "services_count": 1,
+            "repositories_count": 0,
+            "requests_count": 1,
+            "resources_count": 0
+        },
+        {
+            "name": "Destination",
+            "controllers_count": 3,
+            "models_count": 2,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 1,
+            "resources_count": 0
+        },
+        {
+            "name": "Gallery",
+            "controllers_count": 3,
+            "models_count": 2,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 1,
+            "resources_count": 0
+        },
+        {
+            "name": "TourPackage",
+            "controllers_count": 3,
+            "models_count": 3,
+            "services_count": 1,
+            "repositories_count": 0,
+            "requests_count": 1,
+            "resources_count": 0
+        }
+    ],
+    "entities": [
+        {
+            "full_name": "Core::Admin",
+            "name": "Admin",
+            "module": "Core",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 4
+        },
+        {
+            "full_name": "Core::AdminActivity",
+            "name": "AdminActivity",
+            "module": "Core",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 9
+        },
+        {
+            "full_name": "Core::ContactRequest",
+            "name": "ContactRequest",
+            "module": "Core",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 4
+        },
+        {
+            "full_name": "Destination::Destination",
+            "name": "Destination",
+            "module": "Destination",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 2,
+            "fields_count": 11
+        },
+        {
+            "full_name": "Destination::DestinationCategory",
+            "name": "DestinationCategory",
+            "module": "Destination",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 2
+        },
+        {
+            "full_name": "Destination::DestinationRequest",
+            "name": "DestinationRequest",
+            "module": "Destination",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 14
+        },
+        {
+            "full_name": "Gallery::Gallery",
+            "name": "Gallery",
+            "module": "Gallery",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 2,
+            "fields_count": 6
+        },
+        {
+            "full_name": "Gallery::GalleryCategory",
+            "name": "GalleryCategory",
+            "module": "Gallery",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 2
+        },
+        {
+            "full_name": "Gallery::GalleryRequest",
+            "name": "GalleryRequest",
+            "module": "Gallery",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 3
+        },
+        {
+            "full_name": "TourPackage::PackageType",
+            "name": "PackageType",
+            "module": "TourPackage",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 4
+        },
+        {
+            "full_name": "TourPackage::TourPackage",
+            "name": "TourPackage",
+            "module": "TourPackage",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 2,
+            "fields_count": 10
+        },
+        {
+            "full_name": "TourPackage::TourPackagePricing",
+            "name": "TourPackagePricing",
+            "module": "TourPackage",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 4
+        },
+        {
+            "full_name": "TourPackage::TourPackageRequest",
+            "name": "TourPackageRequest",
+            "module": "TourPackage",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 16
+        }
+    ],
+    "connections": [
+        {
+            "from": "Destination",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Services\\ImageService;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Destination/app\\Http\\Controllers\\Admin\\AdminDestinationController.php"
+        },
+        {
+            "from": "Destination",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Destination/app\\Models\\Destination.php"
+        },
+        {
+            "from": "Destination",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Models\\Admin;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Destination/app\\Models\\Destination.php"
+        },
+        {
+            "from": "Destination",
+            "to": "Core",
+            "type": "model_usage",
+            "count": 1
+        },
+        {
+            "from": "Destination",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Destination/app\\Models\\DestinationCategory.php"
+        },
+        {
+            "from": "Gallery",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Gallery/app\\Models\\Gallery.php"
+        },
+        {
+            "from": "Gallery",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Models\\Admin;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Gallery/app\\Models\\Gallery.php"
+        },
+        {
+            "from": "Gallery",
+            "to": "Core",
+            "type": "model_usage",
+            "count": 1
+        },
+        {
+            "from": "Gallery",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\Gallery/app\\Models\\GalleryCategory.php"
+        },
+        {
+            "from": "TourPackage",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\TourPackage/app\\Models\\PackageType.php"
+        },
+        {
+            "from": "TourPackage",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\TourPackage/app\\Models\\TourPackage.php"
+        },
+        {
+            "from": "TourPackage",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Traits\\Loggable;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\TourPackage/app\\Models\\TourPackagePricing.php"
+        },
+        {
+            "from": "TourPackage",
+            "to": "Core",
+            "type": "use_statement",
+            "detail": "use Modules\\Core\\Services\\ImageService;",
+            "file": "C:\\laragon\\www\\wisata-arjasa\\Modules\\TourPackage/app\\Services\\TourPackageService.php"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "adminActivity",
+            "type": "hasMany",
+            "from": "Admin",
+            "to": "AdminActivity",
+            "module": "Core"
+        },
+        {
+            "name": "admin",
+            "type": "belongsTo",
+            "from": "AdminActivity",
+            "to": "Admin",
+            "module": "Core"
+        },
+        {
+            "name": "category",
+            "type": "belongsTo",
+            "from": "Destination",
+            "to": "DestinationCategory",
+            "module": "Destination"
+        },
+        {
+            "name": "admin",
+            "type": "belongsTo",
+            "from": "Destination",
+            "to": "Admin",
+            "module": "Destination"
+        },
+        {
+            "name": "destinations",
+            "type": "hasMany",
+            "from": "DestinationCategory",
+            "to": "Destination",
+            "module": "Destination"
+        },
+        {
+            "name": "galleryCategory",
+            "type": "belongsTo",
+            "from": "Gallery",
+            "to": "GalleryCategory",
+            "module": "Gallery"
+        },
+        {
+            "name": "admin",
+            "type": "belongsTo",
+            "from": "Gallery",
+            "to": "Admin",
+            "module": "Gallery"
+        },
+        {
+            "name": "galleries",
+            "type": "hasMany",
+            "from": "GalleryCategory",
+            "to": "Gallery",
+            "module": "Gallery"
+        },
+        {
+            "name": "tourPackages",
+            "type": "hasMany",
+            "from": "PackageType",
+            "to": "TourPackage",
+            "module": "TourPackage"
+        },
+        {
+            "name": "pricings",
+            "type": "hasMany",
+            "from": "TourPackage",
+            "to": "TourPackagePricing",
+            "module": "TourPackage"
+        },
+        {
+            "name": "packageType",
+            "type": "belongsTo",
+            "from": "TourPackage",
+            "to": "PackageType",
+            "module": "TourPackage"
+        },
+        {
+            "name": "package",
+            "type": "belongsTo",
+            "from": "TourPackagePricing",
+            "to": "TourPackage",
+            "module": "TourPackage"
+        }
+    ]
+}

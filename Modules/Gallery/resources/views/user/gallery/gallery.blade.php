@@ -77,7 +77,7 @@
 
                 <!-- Gallery Grid -->
                 <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                    @include('user.gallery.partials.gallery-grid', ['galleries' => $galleries])
+                    @include('gallery::user.gallery.partials.gallery-grid', ['galleries' => $galleries])
                 </div>
 
                 <!-- Empty state -->

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\PackageType;
 use Illuminate\Database\Seeder;
+use Modules\TourPackage\Models\PackageType;
 
 class PackageTypeSeeder extends Seeder
 {
