@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace Modules\Destination\app\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\DestinationCategory;
-use App\Models\Destination;
+use Modules\Destination\app\Models\DestinationCategory;
+use Modules\Destination\app\Models\Destination;
 use Illuminate\Contracts\View\View;
 
 class TouristDestinationController extends Controller
@@ -18,7 +18,7 @@ class TouristDestinationController extends Controller
             ->get();
 
         return view(
-            'user.destinasi-wisata.destinasi-wisata',
+            'destination::user.destinasi-wisata.destinasi-wisata',
             compact('categories', 'destinations')
         );
     }
@@ -38,7 +38,7 @@ class TouristDestinationController extends Controller
             ->get();
 
         return view(
-            'user.destinasi-wisata.destinasi-wisata-detail',
+            'destination::user.destinasi-wisata.destinasi-wisata-detail',
             compact('destination', 'nearbyDestinations')
         );
     }

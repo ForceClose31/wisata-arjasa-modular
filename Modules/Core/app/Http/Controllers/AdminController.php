@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\Core\app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Destination;
-use App\Models\Gallery;
-use App\Models\TourPackage;
-use App\Models\AdminActivity;
+use Modules\Core\app\Models\AdminActivity;
+use Modules\Destination\app\Models\Destination;
+use Modules\Gallery\app\Models\Gallery;
+use Modules\TourPackage\app\Models\TourPackage;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -29,10 +29,9 @@ class AdminController extends Controller
 
         $weeklyStats = $this->getWeeklyStats();
         $monthlyViews = $this->getMonthlyViews();
-
         $totalViews = Destination::sum('views_count');
 
-        return view('admin.dashboard', compact(
+        return view('core::admin.dashboard', compact(
             'tourPackageCount',
             'destinationCount',
             'galleryCount',
@@ -52,7 +51,7 @@ class AdminController extends Controller
             ->get();
 
         return response()->json([
-            'html' => view('admin.partials.activities', compact('recentActivities'))->render()
+            'html' => view('core::admin.partials.activities', compact('recentActivities'))->render()
         ]);
     }
 
@@ -69,7 +68,7 @@ class AdminController extends Controller
             'total' => AdminActivity::count(),
         ];
 
-        return view('admin.activities.index', compact('activities', 'stats'));
+        return view('core::admin.activities.index', compact('activities', 'stats'));
     }
 
     private function getWeeklyStats()

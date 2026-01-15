@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Destination\app\Models;
 
-use App\Traits\Loggable;
+use Modules\Core\app\Traits\Loggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Traits;
+namespace Modules\Core\app\Traits;
 
-use App\Models\AdminActivity;
+use Modules\Core\app\Models\AdminActivity;
 use Illuminate\Support\Facades\Request;
 
 trait Loggable

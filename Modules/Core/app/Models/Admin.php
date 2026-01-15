@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Core\app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,7 +30,6 @@ class Admin extends Authenticatable
 
     public function adminActivity()
     {
-        return $this->belongsTo(AdminActivity::class);
+        return $this->hasMany(AdminActivity::class);
     }
-
 }

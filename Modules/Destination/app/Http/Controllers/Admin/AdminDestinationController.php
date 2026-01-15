@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\Destination\app\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DestinationRequest;
-use App\Models\Destination;
-use App\Models\DestinationCategory;
-use App\Services\ImageService;
+use Modules\Destination\app\Http\Requests\DestinationRequest;
+use Modules\Destination\app\Models\Destination;
+use Modules\Destination\app\Models\DestinationCategory;
+use Modules\Core\app\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -23,13 +23,13 @@ class AdminDestinationController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('admin.destinations.index', compact('destinations'));
+        return view('destination::admin.destinations.index', compact('destinations'));
     }
 
     public function create(): View
     {
         $categories = DestinationCategory::select('id', 'name')->get();
-        return view('admin.destinations.create', compact('categories'));
+        return view('destination::admin.destinations.create', compact('categories'));
     }
 
     public function store(DestinationRequest $request): RedirectResponse
@@ -53,7 +53,7 @@ class AdminDestinationController extends Controller
     public function edit(Destination $destination): View
     {
         $categories = DestinationCategory::select('id', 'name')->get();
-        return view('admin.destinations.edit', compact('destination', 'categories'));
+        return view('destination::admin.destinations.edit', compact('destination', 'categories'));
     }
 
     public function update(DestinationRequest $request, Destination $destination): RedirectResponse

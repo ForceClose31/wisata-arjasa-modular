@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Modules\Core\app\Services;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +22,6 @@ class ImageService
         $path = $directory . '/' . $filename;
 
         if ($width) {
-
             $image = $this->manager->read($file->getRealPath())
                 ->scaleDown(width: $width)
                 ->encodeByExtension($file->getClientOriginalExtension(), quality: 85);
