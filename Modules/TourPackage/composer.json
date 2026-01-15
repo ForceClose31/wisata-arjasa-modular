@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/tourpackage",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\TourPackage\\": "app/",
+            "Modules\\TourPackage\\Database\\Factories\\": "database/factories/",
+            "Modules\\TourPackage\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\TourPackage\\Tests\\": "tests/"
+        }
+    }
+}

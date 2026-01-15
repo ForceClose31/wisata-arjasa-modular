@@ -1,0 +1,155 @@
+{
+    "version": "v2.0",
+    "architecture_type": "modular",
+    "timestamp": "2026-01-15T04:52:09+00:00",
+    "metrics": {
+        "S1": 14,
+        "S2": 0,
+        "D1": 0,
+        "D2": 1,
+        "D3": 0,
+        "D4": 0,
+        "D5": 0
+    },
+    "modules": [
+        {
+            "name": "Core::Http",
+            "controllers_count": 3,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Core::Models",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Core::Providers",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Core::Services",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Core::Traits",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Destination::Http",
+            "controllers_count": 3,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 1,
+            "resources_count": 0
+        },
+        {
+            "name": "Destination::Models",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Destination::Providers",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Gallery::Http",
+            "controllers_count": 3,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Gallery::Models",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "Gallery::Providers",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "TourPackages::Http",
+            "controllers_count": 3,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "TourPackages::Models",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "TourPackages::Providers",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        }
+    ],
+    "entities": [
+        {
+            "full_name": "Destination::Http::DestinationRequest",
+            "name": "DestinationRequest",
+            "module": "Destination::Http",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 14
+        }
+    ],
+    "connections": [],
+    "relationships": []
+}

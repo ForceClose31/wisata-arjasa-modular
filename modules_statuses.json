@@ -3,5 +3,6 @@
     "Gallery": true,
     "TourPackages": true,
     "Core": true,
-    "News": true
+    "News": true,
+    "TourPackage": true
 }

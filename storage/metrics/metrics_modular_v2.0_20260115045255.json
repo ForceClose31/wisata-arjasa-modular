@@ -1,0 +1,119 @@
+{
+    "version": "v2.0",
+    "architecture_type": "modular",
+    "timestamp": "2026-01-15T04:52:55+00:00",
+    "metrics": {
+        "S1": 6,
+        "S2": 0,
+        "D1": 1,
+        "D2": 4,
+        "D3": 0,
+        "D4": 0,
+        "D5": 0
+    },
+    "modules": [
+        {
+            "name": "Modules",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "app",
+            "controllers_count": 5,
+            "models_count": 1,
+            "services_count": 1,
+            "repositories_count": 0,
+            "requests_count": 4,
+            "resources_count": 0
+        },
+        {
+            "name": "config",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "resources",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "routes",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        },
+        {
+            "name": "stubs",
+            "controllers_count": 0,
+            "models_count": 0,
+            "services_count": 0,
+            "repositories_count": 0,
+            "requests_count": 0,
+            "resources_count": 0
+        }
+    ],
+    "entities": [
+        {
+            "full_name": "app::Testimonial",
+            "name": "Testimonial",
+            "module": "app",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 0,
+            "fields_count": 5
+        },
+        {
+            "full_name": "app::ContactRequest",
+            "name": "ContactRequest",
+            "module": "app",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 4
+        },
+        {
+            "full_name": "app::DestinationRequest",
+            "name": "DestinationRequest",
+            "module": "app",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 14
+        },
+        {
+            "full_name": "app::GalleryRequest",
+            "name": "GalleryRequest",
+            "module": "app",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 3
+        },
+        {
+            "full_name": "app::TourPackageRequest",
+            "name": "TourPackageRequest",
+            "module": "app",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 16
+        }
+    ],
+    "connections": [],
+    "relationships": []
+}

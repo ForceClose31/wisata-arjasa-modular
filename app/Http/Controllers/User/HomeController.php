@@ -2,13 +2,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Destination;
-use App\Models\DestinationCategory;
-use App\Models\GalleryCategory;
-use App\Models\TourPackage;
-use App\Models\PackageType;
+use Modules\Destination\Models\Destination;
+use Modules\Destination\Models\DestinationCategory;
+use Modules\Gallery\Models\GalleryCategory;
+use Modules\TourPackage\Models\TourPackage;
 use Illuminate\Contracts\View\View;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class HomeController extends Controller
 {

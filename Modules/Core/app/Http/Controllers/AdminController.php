@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Core\Models\AdminActivity;
 use Modules\Destination\Models\Destination;
 use Modules\Gallery\Models\Gallery;
-use Modules\TourPackage\Models\TourPackage;
+use Modules\TourPackages\Models\TourPackage;
 use Carbon\Carbon;
 
 class AdminController extends Controller
