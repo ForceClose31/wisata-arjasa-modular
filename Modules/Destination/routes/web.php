@@ -1,19 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Destination\Http\Controllers\DestinationController;
+use Modules\Destination\Http\Controllers\Admin\AdminDestinationController;
+use Modules\Destination\Http\Controllers\User\TouristDestinationController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::group([], function () {
-    Route::resource('destination', DestinationController::class)->names('destination');
+Route::middleware('locale')->group(function () {
+    Route::controller(TouristDestinationController::class)
+        ->prefix('tourist-destination')
+        ->name('tourist-destination.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{slug}', 'show')->name('show');
+        });
 });
+
+Route::prefix('admin')
+    ->middleware(['auth:admin', 'admin'])
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('destinations', AdminDestinationController::class)->except('show');
+    });

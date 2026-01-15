@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace Modules\TourPackages\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\TourPackage;
-use App\Models\PackageType;
+use Modules\TourPackages\Models\TourPackage;
+use Modules\TourPackages\Models\PackageType;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class TourPackageController extends Controller
+class TourPackagesController extends Controller
 {
     public function tourPackage(): View
     {
@@ -21,7 +21,7 @@ class TourPackageController extends Controller
             ->latest()
             ->paginate(6);
 
-        return view('user.tour-package.tour-package', compact('featuredPackages'));
+        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages'));
     }
 
     public function byType(string $packageType): View
@@ -35,7 +35,7 @@ class TourPackageController extends Controller
                 ->latest()
                 ->paginate(9);
 
-            return view('user.tour-package.tour-package', [
+            return view('tourpackage::user.tour-package.tour-package', [
                 'featuredPackages' => $tourPackages,
                 'title' => __('All Tour Packages')
             ]);
@@ -54,7 +54,7 @@ class TourPackageController extends Controller
             ->latest()
             ->paginate(6);
 
-        return view('user.tour-package.tour-package', [
+        return view('tourpackage::user.tour-package.tour-package', [
             'featuredPackages' => $tourPackages,
             'title' => $type->name
         ]);

@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\TourPackages\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PackageType;
-use App\Models\TourPackage;
-use App\Models\TourPackagePricing;
+use Modules\TourPackages\Models\PackageType;
+use Modules\TourPackages\Models\TourPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
-class AdminTourPackageController extends Controller
+class AdminTourPackagesController extends Controller
 {
     public function index()
     {
@@ -19,13 +17,13 @@ class AdminTourPackageController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('admin.tour-packages.index', compact('packages'));
+        return view('tourpackage::admin.tour-packages.index', compact('packages'));
     }
 
     public function create()
     {
         $packageTypes = PackageType::where('is_active', true)->get();
-        return view('admin.tour-packages.create', compact('packageTypes'));
+        return view('tourpackage::admin.tour-packages.create', compact('packageTypes'));
     }
 
     public function store(Request $request)
@@ -106,7 +104,7 @@ class AdminTourPackageController extends Controller
     public function edit(TourPackage $tourPackage)
     {
         $packageTypes = PackageType::where('is_active', true)->get();
-        return view('admin.tour-packages.edit', compact('tourPackage', 'packageTypes'));
+        return view('tourpackage::admin.tour-packages.edit', compact('tourPackage', 'packageTypes'));
     }
 
     public function update(Request $request, TourPackage $tourPackage)

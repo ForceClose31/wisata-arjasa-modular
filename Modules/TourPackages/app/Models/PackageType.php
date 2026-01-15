@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace Modules\TourPackages\Models;
 
-use App\Traits\Loggable;
+use Modules\Core\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

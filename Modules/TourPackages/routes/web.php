@@ -1,19 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\TourPackages\Http\Controllers\TourPackagesController;
+use Modules\TourPackages\Http\Controllers\Admin\AdminTourPackagesController;
+use Modules\TourPackages\Http\Controllers\User\TourPackagesController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::middleware('locale')->group(function () {
+    Route::controller(TourPackagesController::class)->prefix('tour-package')->group(function () {
+        Route::get('/', 'tourPackage')->name('tour-package.index');
+        Route::get('/type/{packageType}', 'byType')->name('packages.by-type');
+    });
 
-Route::group([], function () {
-    Route::resource('tourpackages', TourPackagesController::class)->names('tourpackages');
+    Route::get('/packages/{tourPackage}', [TourPackagesController::class, 'show'])
+        ->name('tour-packages.show');
 });
+
+Route::prefix('admin')
+    ->middleware(['auth:admin', 'admin'])
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('tour-packages', AdminTourPackagesController::class)->except('show');
+    });
