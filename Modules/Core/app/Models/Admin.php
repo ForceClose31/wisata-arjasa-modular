@@ -5,6 +5,10 @@ namespace Modules\Core\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Modules\Core\Models\AdminActivity;
+use Modules\Destination\Models\Destination;
+use Modules\Gallery\Models\Gallery;
+use Modules\TourPackage\Models\TourPackage;
 
 class Admin extends Authenticatable
 {
@@ -28,8 +32,23 @@ class Admin extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function adminActivity()
+    public function adminActivities()
     {
         return $this->hasMany(AdminActivity::class);
+    }
+
+    public function destination()
+    {
+        return $this->hasMany(Destination::class);
+    }
+
+    public function gallery()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
+    public function tourPackage()
+    {
+        return $this->hasMany(TourPackage::class);
     }
 }

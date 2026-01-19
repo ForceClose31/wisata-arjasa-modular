@@ -57,6 +57,9 @@ class AnalyzeArchitectureMetrics extends Command
         // Display results
         $this->displayResults();
 
+        // Display entity relationships
+        $this->displayRelationships();
+
         // Save results
         $filename = $this->saveResults($outputPath, $version, $type);
 
@@ -725,6 +728,42 @@ class AnalyzeArchitectureMetrics extends Command
 
             $this->table(['Connection', 'Count'], $connData);
         }
+    }
+
+    /**
+     * Display entity relationships
+     */
+    protected function displayRelationships()
+    {
+        $this->newLine();
+        $this->line('<fg=cyan>═══ ENTITY RELATIONSHIPS ═══</>');
+
+        $rows = [];
+
+        foreach ($this->entities as $entity) {
+            if ($entity['type'] !== 'persistent') {
+                continue;
+            }
+
+            foreach ($entity['relationships'] as $rel) {
+                $rows[] = [
+                    $entity['module'],
+                    $rel['from'],
+                    $rel['type'],
+                    $rel['to'],
+                ];
+            }
+        }
+
+        if (empty($rows)) {
+            $this->warn('No relationships detected.');
+            return;
+        }
+
+        $this->table(
+            ['Module', 'From Entity', 'Relation Type', 'To Entity'],
+            $rows
+        );
     }
 
     /**

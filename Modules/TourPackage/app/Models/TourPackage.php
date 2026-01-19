@@ -2,6 +2,7 @@
 
 namespace Modules\TourPackage\Models;
 
+use Modules\Core\Models\Admin;
 use Modules\Core\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,11 @@ class TourPackage extends Model
     public function packageType(): BelongsTo
     {
         return $this->belongsTo(PackageType::class);
+    }
+
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class);
     }
 
     public function pricings(): HasMany
