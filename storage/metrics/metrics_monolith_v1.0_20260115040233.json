@@ -1,0 +1,245 @@
+{
+    "version": "v1.0",
+    "architecture_type": "monolith",
+    "timestamp": "2026-01-15T04:02:33+00:00",
+    "metrics": {
+        "S1": 1,
+        "S2": 0,
+        "D1": 9,
+        "D2": 4,
+        "D3": 7,
+        "D4": 0,
+        "D5": 0
+    },
+    "modules": [
+        {
+            "name": "App",
+            "controllers_count": 13,
+            "models_count": 9,
+            "services_count": 2,
+            "repositories_count": 0,
+            "requests_count": 4,
+            "resources_count": 0
+        }
+    ],
+    "entities": [
+        {
+            "full_name": "App::Admin",
+            "name": "Admin",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 3,
+            "fields_count": 4
+        },
+        {
+            "full_name": "App::AdminActivity",
+            "name": "AdminActivity",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 9
+        },
+        {
+            "full_name": "App::Destination",
+            "name": "Destination",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 2,
+            "fields_count": 11
+        },
+        {
+            "full_name": "App::DestinationCategory",
+            "name": "DestinationCategory",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 2
+        },
+        {
+            "full_name": "App::Gallery",
+            "name": "Gallery",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 2,
+            "fields_count": 6
+        },
+        {
+            "full_name": "App::GalleryCategory",
+            "name": "GalleryCategory",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 2
+        },
+        {
+            "full_name": "App::PackageType",
+            "name": "PackageType",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 4
+        },
+        {
+            "full_name": "App::TourPackage",
+            "name": "TourPackage",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 2,
+            "fields_count": 10
+        },
+        {
+            "full_name": "App::TourPackagePricing",
+            "name": "TourPackagePricing",
+            "module": "App",
+            "type": "persistent",
+            "subtype": null,
+            "relationships_count": 1,
+            "fields_count": 4
+        },
+        {
+            "full_name": "App::ContactRequest",
+            "name": "ContactRequest",
+            "module": "App",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 4
+        },
+        {
+            "full_name": "App::DestinationRequest",
+            "name": "DestinationRequest",
+            "module": "App",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 14
+        },
+        {
+            "full_name": "App::GalleryRequest",
+            "name": "GalleryRequest",
+            "module": "App",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 3
+        },
+        {
+            "full_name": "App::TourPackageRequest",
+            "name": "TourPackageRequest",
+            "module": "App",
+            "type": "transient",
+            "subtype": "request",
+            "relationships_count": 0,
+            "fields_count": 16
+        }
+    ],
+    "connections": [],
+    "relationships": [
+        {
+            "name": "adminActivity",
+            "type": "belongsTo",
+            "from": "Admin",
+            "to": "AdminActivity",
+            "module": "App"
+        },
+        {
+            "name": "adminNews",
+            "type": "belongsTo",
+            "from": "Admin",
+            "to": "News",
+            "module": "App"
+        },
+        {
+            "name": "adminComments",
+            "type": "belongsTo",
+            "from": "Admin",
+            "to": "NewsComment",
+            "module": "App"
+        },
+        {
+            "name": "admin",
+            "type": "belongsTo",
+            "from": "AdminActivity",
+            "to": "Admin",
+            "module": "App"
+        },
+        {
+            "name": "category",
+            "type": "belongsTo",
+            "from": "Destination",
+            "to": "DestinationCategory",
+            "module": "App"
+        },
+        {
+            "name": "admin",
+            "type": "belongsTo",
+            "from": "Destination",
+            "to": "Admin",
+            "module": "App"
+        },
+        {
+            "name": "destinations",
+            "type": "hasMany",
+            "from": "DestinationCategory",
+            "to": "Destination",
+            "module": "App"
+        },
+        {
+            "name": "galleryCategory",
+            "type": "belongsTo",
+            "from": "Gallery",
+            "to": "GalleryCategory",
+            "module": "App"
+        },
+        {
+            "name": "admin",
+            "type": "belongsTo",
+            "from": "Gallery",
+            "to": "Admin",
+            "module": "App"
+        },
+        {
+            "name": "galleries",
+            "type": "hasMany",
+            "from": "GalleryCategory",
+            "to": "Gallery",
+            "module": "App"
+        },
+        {
+            "name": "tourPackages",
+            "type": "hasMany",
+            "from": "PackageType",
+            "to": "TourPackage",
+            "module": "App"
+        },
+        {
+            "name": "pricings",
+            "type": "hasMany",
+            "from": "TourPackage",
+            "to": "TourPackagePricing",
+            "module": "App"
+        },
+        {
+            "name": "packageType",
+            "type": "belongsTo",
+            "from": "TourPackage",
+            "to": "PackageType",
+            "module": "App"
+        },
+        {
+            "name": "package",
+            "type": "belongsTo",
+            "from": "TourPackagePricing",
+            "to": "TourPackage",
+            "module": "App"
+        }
+    ]
+}

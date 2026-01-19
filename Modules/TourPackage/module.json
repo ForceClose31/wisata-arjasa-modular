@@ -1,0 +1,11 @@
+{
+    "name": "TourPackage",
+    "alias": "tourpackage",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TourPackage\\Providers\\TourPackageServiceProvider"
+    ],
+    "files": []
+}

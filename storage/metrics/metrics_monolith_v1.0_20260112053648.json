@@ -1,0 +1,96 @@
+{
+    "version": "v1.0",
+    "architecture_type": "monolith",
+    "timestamp": "2026-01-12T05:36:48+00:00",
+    "metrics": {
+        "S1": 1,
+        "S2": 0,
+        "D1": 12,
+        "D2": 0,
+        "D3": 10.5,
+        "D4": 0,
+        "D5": 0
+    },
+    "modules": {
+        "app": {
+            "controllers_count": 14,
+            "models_count": 12,
+            "services_count": 2
+        }
+    },
+    "entities": {
+        "Admin": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 3,
+            "fields_count": 4
+        },
+        "AdminActivity": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 1,
+            "fields_count": 9
+        },
+        "Destination": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 2,
+            "fields_count": 11
+        },
+        "DestinationCategory": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 1,
+            "fields_count": 2
+        },
+        "Gallery": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 2,
+            "fields_count": 6
+        },
+        "GalleryCategory": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 1,
+            "fields_count": 2
+        },
+        "News": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 3,
+            "fields_count": 13
+        },
+        "NewsComment": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 4,
+            "fields_count": 10
+        },
+        "PackageType": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 1,
+            "fields_count": 4
+        },
+        "Testimonial": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 0,
+            "fields_count": 5
+        },
+        "TourPackage": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 2,
+            "fields_count": 10
+        },
+        "TourPackagePricing": {
+            "module": "app",
+            "type": "persistent",
+            "relationships_count": 1,
+            "fields_count": 4
+        }
+    },
+    "connections": []
+}
