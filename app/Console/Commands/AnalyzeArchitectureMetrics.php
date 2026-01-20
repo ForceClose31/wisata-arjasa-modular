@@ -387,69 +387,6 @@ class AnalyzeArchitectureMetrics extends Command
         $this->entities[$moduleName . '::' . $className] = $entityData;
     }
 
-    /**
-     * Detect connections between modules
-     */
-    protected function detectConnections($moduleName, $modulePath)
-    {
-        $allFiles = File::allFiles($modulePath);
-
-        foreach ($allFiles as $file) {
-            if ($file->getExtension() !== 'php') {
-                continue;
-            }
-
-            $content = File::get($file->getPathname());
-
-            foreach ($this->modules as $targetModule => $data) {
-                if ($targetModule === $moduleName) {
-                    continue;
-                }
-
-                $usePattern = '/use\s+Modules\\\\' . preg_quote($targetModule, '/') . '\\\\([^;]+);/i';
-                if (preg_match_all($usePattern, $content, $matches)) {
-                    foreach ($matches[0] as $index => $match) {
-                        $importedClass = $matches[1][$index];
-                        
-                        $this->serviceConnections[] = [
-                            'from' => $moduleName,
-                            'to' => $targetModule,
-                            'type' => 'use_statement',
-                            'detail' => trim($match),
-                            'file' => $file->getPathname(),
-                            'imported_class' => $importedClass
-                        ];
-                    }
-                }
-
-                $classPattern = '/\b' . preg_quote($targetModule, '/') . '::/';
-                if (preg_match($classPattern, $content)) {
-                    $this->serviceConnections[] = [
-                        'from' => $moduleName,
-                        'to' => $targetModule,
-                        'type' => 'direct_usage',
-                        'file' => $file->getPathname()
-                    ];
-                }
-
-                foreach (['Models', 'Services', 'Controllers', 'Repositories'] as $layer) {
-                    $layerPattern = '/(?:use\s+)?Modules\\\\' . preg_quote($targetModule, '/') . 
-                                '\\\\(?:app\\\\)?' . $layer . '\\\\(\w+)/i';
-                    
-                    if (preg_match_all($layerPattern, $content, $layerMatches)) {
-                        $this->serviceConnections[] = [
-                            'from' => $moduleName,
-                            'to' => $targetModule,
-                            'type' => strtolower($layer) . '_usage',
-                            'classes' => array_unique($layerMatches[1]),
-                            'count' => count($layerMatches[0])
-                        ];
-                    }
-                }
-            }
-        }
-    }
-
     protected function detectConnections($moduleName, $modulePath)
     {
         $allFiles = File::allFiles($modulePath);
