@@ -126,5 +126,7 @@ return array(
     'Detail' => 'Detail',
     'Mulai dari' => 'Mulai dari',
     'Paket Wisata Terkait' => 'Paket Wisata Terkait',
-    'Lihat Semua Paket Wisata' => 'Lihat Semua Paket Wisata'
+    'Lihat Semua Paket Wisata' => 'Lihat Semua Paket Wisata',
+    'Destinasi Populer' => 'Destinasi Populer',
+    'Lihat Semua Destinasi' => 'Lihat Semua Destinasi'
 );

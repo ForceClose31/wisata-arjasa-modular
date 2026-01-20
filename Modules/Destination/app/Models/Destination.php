@@ -4,6 +4,7 @@ namespace Modules\Destination\Models;
 
 use Modules\Core\Traits\Loggable;
 use Modules\Core\Models\Admin;
+use Modules\TourPackage\Models\TourPackage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,6 +46,22 @@ class Destination extends Model
     public function admin(): BelongsTo
     {
         return $this->belongsTo(Admin::class);
+    }
+
+    public function getRelatedTourPackages($limit = 3)
+    {
+        return TourPackage::with(['packageType', 'pricings'])
+            ->where('is_available', true)
+            ->inRandomOrder()
+            ->limit($limit)
+            ->get();
+    }
+
+    public function hasRelatedPackages(): bool
+    {
+        return TourPackage::where('is_available', true)
+            ->where('description->id', 'like', "%{$this->getTranslation('title', 'id')}%")
+            ->exists();
     }
 
     public function getTranslation(string $field, ?string $locale = null): ?string

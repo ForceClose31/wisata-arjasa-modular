@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Modules\Destination\Http\Requests\DestinationRequest;
 use Modules\Destination\Models\Destination;
 use Modules\Destination\Models\DestinationCategory;
+use Modules\TourPackage\Models\TourPackage;
 use Modules\Core\Services\ImageService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -23,7 +24,14 @@ class AdminDestinationController extends Controller
             ->latest()
             ->paginate(15);
 
-        return view('destination::admin.destinations.index', compact('destinations'));
+        $totalTourPackages = TourPackage::count();
+        $availablePackages = TourPackage::where('is_available', true)->count();
+
+        return view('destination::admin.destinations.index', compact(
+            'destinations', 
+            'totalTourPackages', 
+            'availablePackages'
+        ));
     }
 
     public function create(): View

@@ -121,5 +121,12 @@ return array(
     'nama@example.com' => 'name@gmail.com',
     'Galeri Wisata' => 'Tourism Gallery',
     'Lihat momen-momen indah dari pengalaman wisatawan' => 'See beautiful moments from the travelers experience',
-    'Lihat Semua Galeri' => 'View All Galleries'
+    'Lihat Semua Galeri' => 'View All Galleries',
+    'Jelajahi paket wisata lengkap untuk pengalaman tak terlupakan' => 'Explore complete tour packages for an unforgettable experience',
+    'Detail' => 'Detail',
+    'Mulai dari' => 'Starting from',
+    'Paket Wisata Terkait' => 'Related Tour Packages',
+    'Lihat Semua Paket Wisata' => 'View All Tour Packages',
+    'Destinasi Populer' => 'Popular Destinations',
+    'Lihat Semua Destinasi' => 'See All Destinations'
 );
