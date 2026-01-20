@@ -5,7 +5,6 @@ namespace Modules\Destination\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Modules\Destination\Models\DestinationCategory;
 use Modules\Destination\Models\Destination;
-use Modules\TourPackage\Models\TourPackage;
 use Illuminate\Contracts\View\View;
 
 class TouristDestinationController extends Controller
@@ -18,15 +17,9 @@ class TouristDestinationController extends Controller
             ->latest()
             ->get();
 
-        $featuredPackages = TourPackage::with(['packageType:id,name', 'pricings'])
-            ->where('is_available', true)
-            ->where('is_featured', true)
-            ->take(3)
-            ->get();
-
         return view(
             'destination::user.destinasi-wisata.destinasi-wisata',
-            compact('categories', 'destinations', 'featuredPackages')
+            compact('categories', 'destinations')
         );
     }
 
@@ -44,15 +37,9 @@ class TouristDestinationController extends Controller
             ->limit(5)
             ->get();
 
-        $suggestedPackages = TourPackage::with(['packageType:id,name', 'pricings'])
-            ->where('is_available', true)
-            ->inRandomOrder()
-            ->take(2)
-            ->get();
-
         return view(
             'destination::user.destinasi-wisata.destinasi-wisata-detail',
-            compact('destination', 'nearbyDestinations', 'suggestedPackages')
+            compact('destination', 'nearbyDestinations')
         );
     }
 }
