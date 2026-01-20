@@ -5,7 +5,6 @@ namespace Modules\TourPackage\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Modules\TourPackage\Models\TourPackage;
 use Modules\TourPackage\Models\PackageType;
-use Modules\Gallery\Models\Gallery;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -22,12 +21,8 @@ class TourPackageController extends Controller
             ->latest()
             ->paginate(6);
         
-        $showcaseGalleries = Gallery::with('galleryCategory')
-            ->latest()
-            ->take(8)
-            ->get();
 
-        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages', 'showcaseGalleries'));
+        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages'));
     }
 
     public function byType(string $packageType): View
@@ -41,12 +36,9 @@ class TourPackageController extends Controller
                 ->latest()
                 ->paginate(9);
 
-            $showcaseGalleries = Gallery::latest()->take(8)->get();
-
             return view('tourpackage::user.tour-package.tour-package', [
                 'featuredPackages' => $tourPackages,
-                'title' => __('All Tour Packages'),
-                'showcaseGalleries' => $showcaseGalleries
+                'title' => __('All Tour Packages')
             ]);
         }
 
@@ -63,12 +55,9 @@ class TourPackageController extends Controller
             ->latest()
             ->paginate(6);
 
-        $showcaseGalleries = Gallery::latest()->take(8)->get();
-
         return view('tourpackage::user.tour-package.tour-package', [
             'featuredPackages' => $tourPackages,
-            'title' => $type->name,
-            'showcaseGalleries' => $showcaseGalleries
+            'title' => $type->name
         ]);
     }
 

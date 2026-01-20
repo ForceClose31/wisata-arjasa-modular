@@ -47,78 +47,50 @@
 
         <section class="py-20 bg-white">
             <div class="container mx-auto px-4 max-w-screen-xl">
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                    <div class="lg:col-span-3">
-                        <div class="mb-10 text-center" data-aos="fade-up" data-aos-duration="1000">
-                            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2 font-montserrat relative inline-block">
-                                Gallery
-                                <span class="absolute bottom-0 left-0 w-full h-2 bg-blue-400 opacity-70 -z-1"></span>
-                            </h2>
-                            <p class="text-lg text-gray-700">{{ __('user.Temukan keindahan setiap sudut Arjasa dalam galeri foto kami.') }}</p>
-                        </div>
-                        <div class="mb-8 flex flex-wrap justify-center gap-3" id="category-filters">
-                            <button data-category=""
-                                class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 {{ !request()->has('category') ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                                {{ __('user.Semua Kategori') }}
-                            </button>
-                            @foreach ($categories as $category)
-                                <button data-category="{{ $category->slug }}"
-                                    class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 {{ request('category') == $category->slug ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                                    {{ $category->name }}
-                                </button>
-                            @endforeach
-                        </div>
-                        <div id="loading" class="hidden text-center py-8">
-                            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-                            <p class="mt-2 text-gray-600">Memuat galeri...</p>
-                        </div>
-                        <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-                            @include('gallery::user.gallery.partials.gallery-grid', ['galleries' => $galleries])
-                        </div>
-                    </div>
+                <div class="mb-10 text-center" data-aos="fade-up" data-aos-duration="1000">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2 font-montserrat relative inline-block">
+                        Gallery
+                        <span class="absolute bottom-0 left-0 w-full h-2 bg-blue-400 opacity-70 -z-1"></span>
+                    </h2>
+                    <p class="text-lg text-gray-700">{{ __('user.Temukan keindahan setiap sudut Arjasa dalam galeri foto kami.') }}</p>
+                </div>
 
-                    <div class="lg:col-span-1">
-                        <div class="bg-white rounded-xl shadow-lg p-6 sticky top-20">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-map-marked-alt text-blue-500 mr-2"></i>
-                                {{ __('user.Destinasi Populer') }}
-                            </h3>
-                            
-                            @if(isset($featuredDestinations) && $featuredDestinations->count() > 0)
-                                <div class="space-y-4">
-                                    @foreach($featuredDestinations as $destination)
-                                        <a href="{{ route('tourist-destination.show', $destination->slug) }}" 
-                                           class="block group">
-                                            <div class="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition">
-                                                @if($destination->image)
-                                                    <img src="{{ asset('storage/' . $destination->image) }}" 
-                                                         alt="{{ $destination->getTranslation('title', app()->getLocale()) }}"
-                                                         class="w-16 h-16 object-cover rounded-lg">
-                                                @endif
-                                                <div class="flex-1">
-                                                    <h4 class="font-semibold text-sm text-gray-800 group-hover:text-blue-600 transition line-clamp-2">
-                                                        {{ $destination->getTranslation('title', app()->getLocale()) }}
-                                                    </h4>
-                                                    <p class="text-xs text-gray-500 mt-1">
-                                                        <i class="fas fa-map-marker-alt mr-1"></i>
-                                                        {{ $destination->getTranslation('location', app()->getLocale()) }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
+                <!-- Improved Category Filter -->
+                <div class="mb-8 flex flex-wrap justify-center gap-3" id="category-filters">
+                    <button data-category=""
+                        class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 {{ !request()->has('category') ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                        {{ __('user.Semua Kategori') }}
+                    </button>
+                    @foreach ($categories as $category)
+                        <button data-category="{{ $category->slug }}"
+                            class="filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 {{ request('category') == $category->slug ? 'bg-blue-600 text-white shadow-md' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
+                            {{ $category->name }}
+                        </button>
+                    @endforeach
+                </div>
 
-                                <a href="{{ route('tourist-destination.index') }}" 
-                                   class="block mt-4 text-center text-sm text-blue-600 hover:text-blue-700 font-semibold">
-                                    {{ __('user.Lihat Semua Destinasi') }} →
-                                </a>
-                            @endif
-                        </div>
+                <!-- Loading indicator -->
+                <div id="loading" class="hidden text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                    <p class="mt-2 text-gray-600">Memuat galeri...</p>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div id="gallery-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    @include('gallery::user.gallery.partials.gallery-grid', ['galleries' => $galleries])
+                </div>
+
+                <!-- Empty state -->
+                <div id="empty-state" class="hidden text-center py-12">
+                    <div class="text-gray-400 mb-4">
+                        <i class="fas fa-images text-4xl"></i>
                     </div>
+                    <p class="text-gray-600">Tidak ada foto yang ditemukan untuk kategori ini.</p>
                 </div>
             </div>
         </section>
+
+        <!-- Enhanced Modal Popup -->
         <div x-show="isOpen" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
