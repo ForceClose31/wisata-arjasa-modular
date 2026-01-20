@@ -107,6 +107,7 @@ class AnalyzeArchitectureMetrics extends Command
         // Detect modules (directories in base path)
         $moduleDirs = File::directories($basePath);
 
+        // PASS 1: Register all modules first
         foreach ($moduleDirs as $moduleDir) {
             $moduleName = basename($moduleDir);
 
@@ -115,22 +116,50 @@ class AnalyzeArchitectureMetrics extends Command
                 continue;
             }
 
-            $this->line("  - Scanning module: {$moduleName}");
-
-            // Check if this is a module with app directory (Laravel module structure)
+            $this->line("  - Registering module: {$moduleName}");
+            
+            // Register module structure
             $appPath = $moduleDir . '/app';
             if (File::exists($appPath)) {
-                $this->line("    ↳ Detected Laravel module structure");
-                $this->analyzeModule($moduleName, $appPath);
+                $this->modules[$moduleName] = [
+                    'path' => $appPath,
+                    'controllers' => [],
+                    'models' => [],
+                    'services' => [],
+                    'repositories' => [],
+                    'requests' => [],
+                    'resources' => [],
+                    'connections' => []
+                ];
             } else {
-                // Direct module analysis
-                $this->analyzeModule($moduleName, $moduleDir);
+                $this->modules[$moduleName] = [
+                    'path' => $moduleDir,
+                    'controllers' => [],
+                    'models' => [],
+                    'services' => [],
+                    'repositories' => [],
+                    'requests' => [],
+                    'resources' => [],
+                    'connections' => []
+                ];
             }
         }
 
-        $this->info("✓ Found " . count($this->modules) . " modules");
-    }
+        $this->info("✓ Registered " . count($this->modules) . " modules");
+        $this->newLine();
+        $this->info('📦 Analyzing module contents...');
 
+        // PASS 2: Analyze each module (now all modules are known)
+        foreach ($this->modules as $moduleName => $moduleData) {
+            $this->line("  - Scanning module: {$moduleName}");
+            
+            if (File::exists($moduleData['path'])) {
+                $this->analyzeModule($moduleName, $moduleData['path']);
+            }
+        }
+
+        $this->info("✓ Analysis completed for " . count($this->modules) . " modules");
+    }
     /**
      * Analyze Traditional Monolith Architecture
      */
@@ -473,7 +502,7 @@ class AnalyzeArchitectureMetrics extends Command
         
         $this->line("  → Scanned {$scannedCount} PHP files in {$moduleName}");
     }
-    
+
     /**
      * Calculate all metrics
      */
