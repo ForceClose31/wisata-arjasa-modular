@@ -392,6 +392,10 @@ class AnalyzeArchitectureMetrics extends Command
         $allFiles = File::allFiles($modulePath);
         
         $this->line("  → Scanning {$moduleName} for connections...");
+        
+        // DEBUG: Show available target modules
+        $this->warn("    Available target modules: " . implode(', ', array_keys($this->modules)));
+        
         $scannedCount = 0;
 
         foreach ($allFiles as $file) {
@@ -409,6 +413,13 @@ class AnalyzeArchitectureMetrics extends Command
                 // Check if TourPackage is mentioned
                 if (strpos($content, 'TourPackage') !== false) {
                     $this->info("    ✓ TourPackage mentioned in this file!");
+                    
+                    // Check if TourPackage exists in modules array
+                    if (isset($this->modules['TourPackage'])) {
+                        $this->info("    ✓ TourPackage module EXISTS in array");
+                    } else {
+                        $this->error("    ✗ TourPackage module NOT YET in array!");
+                    }
                 }
             }
 
@@ -417,19 +428,8 @@ class AnalyzeArchitectureMetrics extends Command
                     continue;
                 }
 
-                // DEBUG: Special check for Destination -> TourPackage
-                if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
-                    $this->warn("    → Checking connection: Destination -> TourPackage in " . $file->getFilename());
-                }
-
                 $usePattern = '/use\s+Modules\\\\' . preg_quote($targetModule, '/') . '\\\\([^;]+);/i';
                 if (preg_match_all($usePattern, $content, $matches)) {
-                    
-                    // DEBUG
-                    if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
-                        $this->info("    ✓✓✓ FOUND USE STATEMENT: " . implode(', ', $matches[0]));
-                    }
-                    
                     foreach ($matches[0] as $index => $match) {
                         $importedClass = $matches[1][$index];
                         
@@ -446,12 +446,6 @@ class AnalyzeArchitectureMetrics extends Command
 
                 $classPattern = '/\b' . preg_quote($targetModule, '/') . '::/';
                 if (preg_match($classPattern, $content)) {
-                    
-                    // DEBUG
-                    if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
-                        $this->info("    ✓✓✓ FOUND DIRECT USAGE!");
-                    }
-                    
                     $this->serviceConnections[] = [
                         'from' => $moduleName,
                         'to' => $targetModule,
@@ -465,12 +459,6 @@ class AnalyzeArchitectureMetrics extends Command
                                 '\\\\(?:app\\\\)?' . $layer . '\\\\(\w+)/i';
                     
                     if (preg_match_all($layerPattern, $content, $layerMatches)) {
-                        
-                        // DEBUG
-                        if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
-                            $this->info("    ✓✓✓ FOUND LAYER USAGE: " . $layer);
-                        }
-                        
                         $this->serviceConnections[] = [
                             'from' => $moduleName,
                             'to' => $targetModule,
@@ -485,7 +473,7 @@ class AnalyzeArchitectureMetrics extends Command
         
         $this->line("  → Scanned {$scannedCount} PHP files in {$moduleName}");
     }
-
+    
     /**
      * Calculate all metrics
      */
