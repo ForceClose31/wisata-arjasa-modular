@@ -5,6 +5,7 @@ namespace Modules\TourPackage\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Modules\TourPackage\Models\TourPackage;
 use Modules\TourPackage\Models\PackageType;
+use Modules\Gallery\Models\Gallery;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -20,8 +21,10 @@ class TourPackageController extends Controller
             ->where('is_featured', true)
             ->latest()
             ->paginate(6);
+        
+        $galleryImages = Gallery::latest()->take(5)->get();
 
-        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages'));
+        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages','galleryImages'));
     }
 
     public function byType(string $packageType): View
