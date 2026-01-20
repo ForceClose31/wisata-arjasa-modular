@@ -378,33 +378,50 @@ class AnalyzeArchitectureMetrics extends Command
 
             $content = File::get($file->getPathname());
 
-            // Detect usage of other modules
             foreach ($this->modules as $targetModule => $data) {
                 if ($targetModule === $moduleName) {
                     continue;
                 }
 
-                // Pattern 1: Check for namespace imports (Modules\TargetModule\...)
-                if (preg_match_all('/use\s+Modules\\\\' . preg_quote($targetModule, '/') . '\\\\[^;]+;/i', $content, $matches)) {
-                    foreach ($matches[0] as $match) {
+                $usePattern = '/use\s+Modules\\\\' . preg_quote($targetModule, '/') . '\\\\([^;]+);/i';
+                if (preg_match_all($usePattern, $content, $matches)) {
+                    foreach ($matches[0] as $index => $match) {
+                        $importedClass = $matches[1][$index];
+                        
                         $this->serviceConnections[] = [
                             'from' => $moduleName,
                             'to' => $targetModule,
                             'type' => 'use_statement',
                             'detail' => trim($match),
-                            'file' => $file->getPathname()
+                            'file' => $file->getPathname(),
+                            'imported_class' => $importedClass
                         ];
                     }
                 }
 
-                // Pattern 2: Check for Model/Service usage in code
-                if (preg_match_all('/\\\\?' . preg_quote($targetModule, '/') . '\\\\Models\\\\(\w+)/i', $content, $matches)) {
+                $classPattern = '/\b' . preg_quote($targetModule, '/') . '::/';
+                if (preg_match($classPattern, $content)) {
                     $this->serviceConnections[] = [
                         'from' => $moduleName,
                         'to' => $targetModule,
-                        'type' => 'model_usage',
-                        'count' => count($matches[0])
+                        'type' => 'direct_usage',
+                        'file' => $file->getPathname()
                     ];
+                }
+
+                foreach (['Models', 'Services', 'Controllers', 'Repositories'] as $layer) {
+                    $layerPattern = '/(?:use\s+)?Modules\\\\' . preg_quote($targetModule, '/') . 
+                                '\\\\(?:app\\\\)?' . $layer . '\\\\(\w+)/i';
+                    
+                    if (preg_match_all($layerPattern, $content, $layerMatches)) {
+                        $this->serviceConnections[] = [
+                            'from' => $moduleName,
+                            'to' => $targetModule,
+                            'type' => strtolower($layer) . '_usage',
+                            'classes' => array_unique($layerMatches[1]),
+                            'count' => count($layerMatches[0])
+                        ];
+                    }
                 }
             }
         }
