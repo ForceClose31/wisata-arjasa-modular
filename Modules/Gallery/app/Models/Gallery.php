@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Translatable\HasTranslations;
-use Modules\Destination\Models\Destination;
 
 class Gallery extends Model
 {
@@ -33,24 +32,5 @@ class Gallery extends Model
     public function admin(): BelongsTo
     {
         return $this->belongsTo(Admin::class);
-    }
-
-    public function getRelatedDestinationAttribute()
-    {
-        if (!$this->location) {
-            return null;
-        }
-
-        return Destination::where('location->id', 'like', "%{$this->location}%")
-            ->orWhere('location->en', 'like', "%{$this->location}%")
-            ->first();
-    }
-
-    public function getNearbyDestinations($limit = 3)
-    {
-        return Destination::where('location->id', 'like', "%{$this->location}%")
-            ->orWhere('location->en', 'like', "%{$this->location}%")
-            ->limit($limit)
-            ->get();
     }
 }
