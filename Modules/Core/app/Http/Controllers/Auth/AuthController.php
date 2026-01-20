@@ -16,29 +16,26 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required|min:8',
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput($request->except('password'));
-        }
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        $remember = $request->has('remember');
+
+        if (Auth::guard('admin')->attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
             $user = Auth::guard('admin')->user();
-
             $request->session()->flash('nama_login', $user->email);
             $request->session()->flash('alert_tampil', true);
 
             return redirect()->intended('admin/dashboard');
         }
 
-        return redirect()->back()->with('error', 'Email atau password tidak terdaftar.');
+        return back()->with('error', 'Email atau password salah.');
     }
 
     public function logout(Request $request)
