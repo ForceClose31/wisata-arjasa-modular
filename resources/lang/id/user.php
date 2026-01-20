@@ -118,5 +118,13 @@ return array(
     'Semua Kategori' => 'Semua Kategori',
     'Halaman ini sedang dalam pengembangan. Nantikan informasi penginapan terbaik dari kami!' => 'Halaman ini sedang dalam pengembangan. Nantikan informasi penginapan terbaik dari kami!',
     'Segera hadir' => 'Segera hadir',
-    'nama@example.com' => 'nama@gmail.com'
+    'nama@example.com' => 'nama@gmail.com',
+    'Galeri Wisata' => 'Galeri Wisata',
+    'Lihat momen-momen indah dari pengalaman wisatawan' => 'Lihat momen-momen indah dari pengalaman wisatawan',
+    'Lihat Semua Galeri' => 'Lihat Semua Galeri',
+    'Jelajahi paket wisata lengkap untuk pengalaman tak terlupakan' => 'Jelajahi paket wisata lengkap untuk pengalaman tak terlupakan',
+    'Detail' => 'Detail',
+    'Mulai dari' => 'Mulai dari',
+    'Paket Wisata Terkait' => 'Paket Wisata Terkait',
+    'Lihat Semua Paket Wisata' => 'Lihat Semua Paket Wisata'
 );

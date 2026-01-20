@@ -118,5 +118,8 @@ return array(
     'Semua Kategori' => 'All Categories',
     'Halaman ini sedang dalam pengembangan. Nantikan informasi penginapan terbaik dari kami!' => 'This page is currently under development. Stay tuned for more information about the best accommodations!',
     'Segera hadir' => 'Coming Soon',
-    'nama@example.com' => 'name@gmail.com'
+    'nama@example.com' => 'name@gmail.com',
+    'Galeri Wisata' => 'Tourism Gallery',
+    'Lihat momen-momen indah dari pengalaman wisatawan' => 'See beautiful moments from the travelers experience',
+    'Lihat Semua Galeri' => 'View All Galleries'
 );
