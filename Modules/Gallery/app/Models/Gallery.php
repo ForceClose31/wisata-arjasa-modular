@@ -35,8 +35,22 @@ class Gallery extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public function relatedDestination()
+    public function getRelatedDestinationAttribute()
     {
-        return Destination::where('location', $this->location)->first();
+        if (!$this->location) {
+            return null;
+        }
+
+        return Destination::where('location->id', 'like', "%{$this->location}%")
+            ->orWhere('location->en', 'like', "%{$this->location}%")
+            ->first();
+    }
+
+    public function getNearbyDestinations($limit = 3)
+    {
+        return Destination::where('location->id', 'like', "%{$this->location}%")
+            ->orWhere('location->en', 'like', "%{$this->location}%")
+            ->limit($limit)
+            ->get();
     }
 }

@@ -5,6 +5,7 @@ namespace Modules\Gallery\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Modules\Gallery\Models\Gallery;
 use Modules\Gallery\Models\GalleryCategory;
+use Modules\Destination\Models\Destination;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +27,12 @@ class GalleryController extends Controller
             ->latest()
             ->get();
 
+        $featuredDestinations = Destination::where('is_featured', true)
+            ->orWhere('views_count', '>', 100)
+            ->orderBy('views_count', 'desc')
+            ->take(5)
+            ->get(['id', 'title', 'image', 'slug', 'location']);
+
         if ($request->ajax()) {
             return response()->json([
                 'galleries' => $galleries,
@@ -38,7 +45,17 @@ class GalleryController extends Controller
 
         return view(
             'gallery::user.gallery.gallery',
-            compact('galleries', 'categories', 'selectedCategory')
+            compact('galleries', 'categories', 'selectedCategory', 'featuredDestinations')
+        );
+    }
+
+    public function show(Gallery $gallery): View
+    {
+        $relatedDestinations = $gallery->getNearbyDestinations(4);
+
+        return view(
+            'gallery::user.gallery.show',
+            compact('gallery', 'relatedDestinations')
         );
     }
 }

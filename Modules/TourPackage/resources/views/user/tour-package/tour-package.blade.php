@@ -148,6 +148,49 @@
             <div class="mt-12" data-aos="fade-up">
                 {{ $featuredPackages->links() }}
             </div>
+
+            @if(isset($showcaseGalleries) && $showcaseGalleries->count() > 0)
+                <div class="mt-20" data-aos="fade-up">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 font-montserrat">
+                            {{ __('user.Galeri Wisata') }}
+                        </h2>
+                        <p class="text-gray-600">
+                            {{ __('user.Lihat momen-momen indah dari pengalaman wisatawan') }}
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        @foreach($showcaseGalleries as $gallery)
+                            <div class="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                                <img src="{{ asset('storage/' . $gallery->image_path) }}" 
+                                     alt="{{ $gallery->title }}"
+                                     class="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div class="absolute bottom-4 left-4 right-4">
+                                        <h3 class="text-white font-bold text-sm line-clamp-2">
+                                            {{ $gallery->title }}
+                                        </h3>
+                                        @if($gallery->galleryCategory)
+                                            <span class="inline-block mt-2 px-2 py-1 bg-blue-500 text-white text-xs rounded-full">
+                                                {{ $gallery->galleryCategory->name }}
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="{{ route('gallery.index') }}" 
+                           class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            {{ __('user.Lihat Semua Galeri') }}
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 @endsection

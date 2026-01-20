@@ -22,9 +22,12 @@ class TourPackageController extends Controller
             ->latest()
             ->paginate(6);
         
-        $galleryImages = Gallery::latest()->take(5)->get();
+        $showcaseGalleries = Gallery::with('galleryCategory')
+            ->latest()
+            ->take(8)
+            ->get();
 
-        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages','galleryImages'));
+        return view('tourpackage::user.tour-package.tour-package', compact('featuredPackages', 'showcaseGalleries'));
     }
 
     public function byType(string $packageType): View
@@ -38,9 +41,12 @@ class TourPackageController extends Controller
                 ->latest()
                 ->paginate(9);
 
+            $showcaseGalleries = Gallery::latest()->take(8)->get();
+
             return view('tourpackage::user.tour-package.tour-package', [
                 'featuredPackages' => $tourPackages,
-                'title' => __('All Tour Packages')
+                'title' => __('All Tour Packages'),
+                'showcaseGalleries' => $showcaseGalleries
             ]);
         }
 
@@ -57,9 +63,12 @@ class TourPackageController extends Controller
             ->latest()
             ->paginate(6);
 
+        $showcaseGalleries = Gallery::latest()->take(8)->get();
+
         return view('tourpackage::user.tour-package.tour-package', [
             'featuredPackages' => $tourPackages,
-            'title' => $type->name
+            'title' => $type->name,
+            'showcaseGalleries' => $showcaseGalleries
         ]);
     }
 

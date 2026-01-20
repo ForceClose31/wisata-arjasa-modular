@@ -6,6 +6,7 @@ use Modules\Gallery\Http\Controllers\User\GalleryController;
 
 Route::middleware('locale')->group(function () {
     Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+    Route::get('/gallery/{gallery}', [GalleryController::class, 'show'])->name('gallery.show'); 
 });
 
 Route::prefix('admin')

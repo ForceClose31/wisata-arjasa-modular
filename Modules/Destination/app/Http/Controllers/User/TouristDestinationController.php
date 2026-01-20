@@ -18,14 +18,15 @@ class TouristDestinationController extends Controller
             ->latest()
             ->get();
 
-        $relatedPackages = TourPackage::where('is_available', true)
+        $featuredPackages = TourPackage::with(['packageType:id,name', 'pricings'])
+            ->where('is_available', true)
             ->where('is_featured', true)
             ->take(3)
             ->get();
 
         return view(
             'destination::user.destinasi-wisata.destinasi-wisata',
-            compact('categories', 'destinations', 'relatedPackages')
+            compact('categories', 'destinations', 'featuredPackages')
         );
     }
 
@@ -43,7 +44,9 @@ class TouristDestinationController extends Controller
             ->limit(5)
             ->get();
 
-        $suggestedPackages = TourPackage::where('is_available', true)
+        $suggestedPackages = TourPackage::with(['packageType:id,name', 'pricings'])
+            ->where('is_available', true)
+            ->inRandomOrder()
             ->take(2)
             ->get();
 

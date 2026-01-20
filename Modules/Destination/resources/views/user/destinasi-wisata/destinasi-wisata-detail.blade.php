@@ -164,6 +164,52 @@
                                 @endforeach
                             </div>
                         </div>
+                        @if(isset($suggestedPackages) && $suggestedPackages->count() > 0)
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 mt-6">
+                                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                    <i class="fas fa-suitcase-rolling text-blue-600 mr-2"></i>
+                                    {{ __('user.Paket Wisata Terkait') }}
+                                </h3>
+                                <div class="space-y-4">
+                                    @foreach($suggestedPackages as $package)
+                                        <div class="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition">
+                                            <div class="flex items-start space-x-3">
+                                                @if(isset($package->images) && count($package->images) > 0)
+                                                    <img src="{{ asset('storage/' . $package->images[0]) }}" 
+                                                         alt="{{ $package->name }}"
+                                                         class="w-20 h-20 object-cover rounded-lg">
+                                                @endif
+                                                <div class="flex-1">
+                                                    <h4 class="font-semibold text-sm text-gray-800 mb-1 line-clamp-2">
+                                                        {{ $package->name }}
+                                                    </h4>
+                                                    <p class="text-xs text-gray-500 mb-2">
+                                                        <i class="fas fa-clock mr-1"></i>
+                                                        {{ $package->duration }}
+                                                    </p>
+                                                    <div class="flex items-center justify-between">
+                                                        <span class="text-sm font-bold text-blue-600">
+                                                            Rp {{ number_format($package->pricings->sortBy('price')->first()->price ?? 0, 0, ',', '.') }}
+                                                        </span>
+                                                        @if($package->pdf_url)
+                                                            <a href="{{ asset('storage/' . $package->pdf_url) }}" 
+                                                               target="_blank"
+                                                               class="text-xs text-blue-600 hover:text-blue-700 font-semibold">
+                                                                {{ __('user.Detail') }} →
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a href="{{ route('tour-package.index') }}" 
+                                   class="block mt-4 text-center text-sm text-blue-600 hover:text-blue-700 font-semibold">
+                                    {{ __('user.Lihat Semua Paket Wisata') }} →
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
