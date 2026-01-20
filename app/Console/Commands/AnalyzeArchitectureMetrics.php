@@ -12,7 +12,8 @@ class AnalyzeArchitectureMetrics extends Command
                             {--arch-version=v1 : Architecture version identifier}
                             {--type=modular : Architecture type (monolith|modular)}
                             {--output=storage/metrics : Output directory for results}
-                            {--compare= : Compare with previous version file}';
+                            {--compare= : Compare with previous version file}
+                            {--dump-file= : Dump content of specific file for debugging}';
 
     protected $description = 'Analyze architecture evolution using S1, S2, D1-D5 metrics for modular monolith';
 
@@ -74,6 +75,28 @@ class AnalyzeArchitectureMetrics extends Command
         return 0;
     }
 
+    protected function dumpFileContent($filename)
+    {
+        $found = false;
+        
+        foreach ($this->modules as $moduleName => $moduleData) {
+            $files = File::allFiles($moduleData['path']);
+            
+            foreach ($files as $file) {
+                if (strpos($file->getFilename(), $filename) !== false) {
+                    $found = true;
+                    $this->info("Found file: " . $file->getPathname());
+                    $this->newLine();
+                    $this->line(File::get($file->getPathname()));
+                    $this->newLine();
+                }
+            }
+        }
+        
+        if (!$found) {
+            $this->error("File containing '{$filename}' not found");
+        }
+    }
     /**
      * Analyze Modular Monolith Architecture
      */
@@ -425,6 +448,105 @@ class AnalyzeArchitectureMetrics extends Command
                 }
             }
         }
+    }
+
+    protected function detectConnections($moduleName, $modulePath)
+    {
+        $allFiles = File::allFiles($modulePath);
+        
+        $this->line("  → Scanning {$moduleName} for connections...");
+        $scannedCount = 0;
+
+        foreach ($allFiles as $file) {
+            if ($file->getExtension() !== 'php') {
+                continue;
+            }
+
+            $scannedCount++;
+            $content = File::get($file->getPathname());
+
+            // DEBUG: Log if this is the AdminDestinationController
+            if (strpos($file->getFilename(), 'AdminDestinationController') !== false) {
+                $this->warn("    ✓ Found AdminDestinationController at: " . $file->getPathname());
+                
+                // Check if TourPackage is mentioned
+                if (strpos($content, 'TourPackage') !== false) {
+                    $this->info("    ✓ TourPackage mentioned in this file!");
+                }
+            }
+
+            foreach ($this->modules as $targetModule => $data) {
+                if ($targetModule === $moduleName) {
+                    continue;
+                }
+
+                // DEBUG: Special check for Destination -> TourPackage
+                if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
+                    $this->warn("    → Checking connection: Destination -> TourPackage in " . $file->getFilename());
+                }
+
+                $usePattern = '/use\s+Modules\\\\' . preg_quote($targetModule, '/') . '\\\\([^;]+);/i';
+                if (preg_match_all($usePattern, $content, $matches)) {
+                    
+                    // DEBUG
+                    if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
+                        $this->info("    ✓✓✓ FOUND USE STATEMENT: " . implode(', ', $matches[0]));
+                    }
+                    
+                    foreach ($matches[0] as $index => $match) {
+                        $importedClass = $matches[1][$index];
+                        
+                        $this->serviceConnections[] = [
+                            'from' => $moduleName,
+                            'to' => $targetModule,
+                            'type' => 'use_statement',
+                            'detail' => trim($match),
+                            'file' => $file->getPathname(),
+                            'imported_class' => $importedClass
+                        ];
+                    }
+                }
+
+                $classPattern = '/\b' . preg_quote($targetModule, '/') . '::/';
+                if (preg_match($classPattern, $content)) {
+                    
+                    // DEBUG
+                    if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
+                        $this->info("    ✓✓✓ FOUND DIRECT USAGE!");
+                    }
+                    
+                    $this->serviceConnections[] = [
+                        'from' => $moduleName,
+                        'to' => $targetModule,
+                        'type' => 'direct_usage',
+                        'file' => $file->getPathname()
+                    ];
+                }
+
+                foreach (['Models', 'Services', 'Controllers', 'Repositories'] as $layer) {
+                    $layerPattern = '/(?:use\s+)?Modules\\\\' . preg_quote($targetModule, '/') . 
+                                '\\\\(?:app\\\\)?' . $layer . '\\\\(\w+)/i';
+                    
+                    if (preg_match_all($layerPattern, $content, $layerMatches)) {
+                        
+                        // DEBUG
+                        if ($moduleName === 'Destination' && $targetModule === 'TourPackage') {
+                            $this->info("    ✓✓✓ FOUND LAYER USAGE: " . $layer);
+                        }
+                        
+                        $this->serviceConnections[] = [
+                            'from' => $moduleName,
+                            'to' => $targetModule,
+                            'type' => strtolower($layer) . '_usage',
+                            'classes' => array_unique($layerMatches[1]),
+                            'count' => count($layerMatches[0])
+                        ];
+                    }
+                }
+            }
+        }
+        
+        $this->line("  → Scanned {$scannedCount} PHP files in {$moduleName}");
     }
 
     /**
